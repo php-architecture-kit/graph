@@ -55,7 +55,7 @@ class Graph
             : null;
 
         if ($edgeStore !== null && $this->config->usesEdgeWeights() && !$edgeStore->hasWeightStore()) {
-            $edgeStore = new EdgeStore($edgeStore->getAllEdges(), $defaultWeightStore);
+            $edgeStore = new EdgeStore($edgeStore->getEdges(), $defaultWeightStore);
         }
 
         $this->edgeStore = $edgeStore ?? new EdgeStore(weightStore: $defaultWeightStore);

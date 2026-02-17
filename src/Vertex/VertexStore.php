@@ -12,17 +12,17 @@ class VertexStore
     use GraphTrait;
 
     /**
-     * @var array<string,Vertex>
+     * @var array<string,VertexInterface>
      */
     private array $store = [];
 
-    public function addVertex(Vertex $vertex): void
+    public function addVertex(VertexInterface $vertex): void
     {
-        if (isset($this->store[$vertex->id->toString()])) {
-            throw new Exception\VertexAlreadyExistsException('Vertex `' . $vertex->id->toString() . '` already exists');
+        if (isset($this->store[$vertex->id()->toString()])) {
+            throw new Exception\VertexAlreadyExistsException('Vertex `' . $vertex->id()->toString() . '` already exists');
         }
 
-        $this->store[$vertex->id->toString()] = $vertex;
+        $this->store[$vertex->id()->toString()] = $vertex;
         $this->graph()->indexNotifier->notifyVertexAdded($vertex);
     }
 
@@ -32,15 +32,15 @@ class VertexStore
     }
 
     /**
-     * @param ?callable(Vertex):bool $filter
-     * @return array<string,Vertex>
+     * @param ?callable(VertexInterface):bool $filter
+     * @return array<string,VertexInterface>
      */
-    public function getAllVertexes(?callable $filter = null): array
+    public function getVertices(?callable $filter = null): array
     {
         return $filter ? array_filter($this->store, $filter) : $this->store;
     }
 
-    public function getVertex(VertexId $id, bool $throwException = false): ?Vertex
+    public function getVertex(VertexId $id, bool $throwException = false): ?VertexInterface
     {
         if ($throwException && !isset($this->store[$id->toString()])) {
             throw new Exception\VertexNotFoundException('Vertex `' . $id->toString() . '` not found');
@@ -63,9 +63,9 @@ class VertexStore
         $vertex = $this->store[$id->toString()];
 
         $edgeStore = $this->graph()->edgeStore;
-        foreach ($edgeStore->getAllEdges() as $edge) {
+        foreach ($edgeStore->getEdges() as $edge) {
             if ($edge->u()->equals($id) || $edge->v()->equals($id)) {
-                $edgeStore->removeEdge($edge->id);
+                $edgeStore->removeEdge($edge->id());
             }
         }
 

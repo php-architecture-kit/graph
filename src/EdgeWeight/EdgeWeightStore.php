@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace PhpArchitecture\Graph\EdgeWeight;
 
-use PhpArchitecture\Graph\Edge\Edge;
+use PhpArchitecture\Graph\Edge\DirectedEdgeInterface;
 use PhpArchitecture\Graph\Edge\Identity\EdgeId;
+use PhpArchitecture\Graph\Edge\UndirectedEdgeInterface;
 use PhpArchitecture\Graph\EdgeWeight\Config\WeightConfig;
 use PhpArchitecture\Graph\EdgeWeight\Exception\EdgeWeightsAlreadyExistsException;
 use PhpArchitecture\Graph\EdgeWeight\Exception\EdgeWeightsNotFoundException;
@@ -19,14 +20,14 @@ final class EdgeWeightStore
         private readonly WeightConfig $weightConfig,
     ) {}
 
-    public function addEdgeWeights(Edge $edge, EdgeWeights $edgeWeights): void
+    public function addEdgeWeights(DirectedEdgeInterface|UndirectedEdgeInterface $edge, EdgeWeights $edgeWeights): void
     {
-        $edgeIdString = $edge->id->toString();
+        $edgeIdString = $edge->id()->toString();
         if (isset($this->weightsByEdgeId[$edgeIdString])) {
             throw new EdgeWeightsAlreadyExistsException('Edge weights for edge `' . $edgeIdString . '` already exist.');
         }
 
-        $edgeWeightsToStore = $edgeWeights->withEdgeId($edge->id);
+        $edgeWeightsToStore = $edgeWeights->withEdgeId($edge->id());
         $edgeWeightsToStore->fillWith($this->weightConfig->default($edge::class)->all(), true);
 
         $this->weightsByEdgeId[$edgeIdString] = $edgeWeightsToStore;
@@ -48,11 +49,11 @@ final class EdgeWeightStore
         unset($this->weightsByEdgeId[$edgeId->toString()]);
     }
 
-    /** @param array<string,Edge> $edges */
+    /** @param array<string,DirectedEdgeInterface|UndirectedEdgeInterface> $edges */
     public function populateEdgeDefaultWeights(array $edges): void
     {
         foreach ($edges as $edge) {
-            $edgeIdString = $edge->id->toString();
+            $edgeIdString = $edge->id()->toString();
             $defaultWeights = $this->weightConfig->default($edge::class);
 
             if (isset($this->weightsByEdgeId[$edgeIdString])) {
@@ -61,7 +62,7 @@ final class EdgeWeightStore
                 continue;
             }
 
-            $this->weightsByEdgeId[$edgeIdString] = $defaultWeights->withEdgeId($edge->id);
+            $this->weightsByEdgeId[$edgeIdString] = $defaultWeights->withEdgeId($edge->id());
         }
     }
 }

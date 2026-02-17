@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace PhpArchitecture\Graph\Events\Listener;
 
-use PhpArchitecture\Graph\Edge\Edge;
+use PhpArchitecture\Graph\Edge\DirectedEdgeInterface;
+use PhpArchitecture\Graph\Edge\UndirectedEdgeInterface;
 
 interface OnEdgeAddedInterface
 {
-    public function onEdgeAdded(Edge $edge): void;
+    public function onEdgeAdded(DirectedEdgeInterface|UndirectedEdgeInterface $edge): void;
 }

@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace PhpArchitecture\Graph\Index;
 
-use PhpArchitecture\Graph\Edge\Edge;
+use PhpArchitecture\Graph\Edge\DirectedEdgeInterface;
+use PhpArchitecture\Graph\Edge\UndirectedEdgeInterface;
 use PhpArchitecture\Graph\Events\Listener\OnEdgeAddedInterface;
 use PhpArchitecture\Graph\Events\Listener\OnEdgeRemovedInterface;
 use PhpArchitecture\Graph\Events\Listener\OnVertexAddedInterface;
 use PhpArchitecture\Graph\Events\Listener\OnVertexRemovedInterface;
-use PhpArchitecture\Graph\Vertex\Vertex;
+use PhpArchitecture\Graph\Vertex\VertexInterface;
 
 class IndexRegistry implements OnVertexAddedInterface, OnVertexRemovedInterface, OnEdgeAddedInterface, OnEdgeRemovedInterface
 {
@@ -51,7 +52,7 @@ class IndexRegistry implements OnVertexAddedInterface, OnVertexRemovedInterface,
         return $this->indexes;
     }
 
-    public function onVertexAdded(Vertex $vertex): void
+    public function onVertexAdded(VertexInterface $vertex): void
     {
         foreach ($this->indexes as $index) {
             if ($index instanceof OnVertexAddedInterface) {
@@ -60,7 +61,7 @@ class IndexRegistry implements OnVertexAddedInterface, OnVertexRemovedInterface,
         }
     }
 
-    public function onVertexRemoved(Vertex $vertex): void
+    public function onVertexRemoved(VertexInterface $vertex): void
     {
         foreach ($this->indexes as $index) {
             if ($index instanceof OnVertexRemovedInterface) {
@@ -69,7 +70,7 @@ class IndexRegistry implements OnVertexAddedInterface, OnVertexRemovedInterface,
         }
     }
 
-    public function onEdgeAdded(Edge $edge): void
+    public function onEdgeAdded(DirectedEdgeInterface|UndirectedEdgeInterface $edge): void
     {
         foreach ($this->indexes as $index) {
             if ($index instanceof OnEdgeAddedInterface) {
@@ -78,7 +79,7 @@ class IndexRegistry implements OnVertexAddedInterface, OnVertexRemovedInterface,
         }
     }
 
-    public function onEdgeRemoved(Edge $edge): void
+    public function onEdgeRemoved(DirectedEdgeInterface|UndirectedEdgeInterface $edge): void
     {
         foreach ($this->indexes as $index) {
             if ($index instanceof OnEdgeRemovedInterface) {

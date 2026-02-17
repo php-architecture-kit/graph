@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace PhpArchitecture\Graph\Edge\Validator;
 
-use PhpArchitecture\Graph\Edge\Edge;
+use PhpArchitecture\Graph\Edge\DirectedEdgeInterface;
 use PhpArchitecture\Graph\Edge\Exception\CyclicEdgeException;
+use PhpArchitecture\Graph\Edge\UndirectedEdgeInterface;
 use PhpArchitecture\Graph\Graph;
 use PhpArchitecture\Graph\Index\IncidenceIndex;
 use PhpArchitecture\Graph\Vertex\Identity\VertexId;
@@ -13,14 +14,14 @@ use SplQueue;
 
 final class CyclicEdgeValidator implements EdgeValidatorInterface
 {
-    public function validate(Edge $edge, Graph $graph): void
+    public function validate(DirectedEdgeInterface|UndirectedEdgeInterface $edge, Graph $graph): void
     {
         if ($this->wouldCreateCycle($edge, $graph)) {
             throw new CyclicEdgeException('Adding edge would create a cycle from `' . $edge->u()->toString() . '` to `' . $edge->v()->toString() . '`');
         }
     }
 
-    private function wouldCreateCycle(Edge $edge, Graph $graph): bool
+    private function wouldCreateCycle(DirectedEdgeInterface|UndirectedEdgeInterface $edge, Graph $graph): bool
     {
         $source = $edge->v();
         $target = $edge->u();
@@ -52,18 +53,18 @@ final class CyclicEdgeValidator implements EdgeValidatorInterface
     }
 
     /**
-     * @return array<string,Edge>
+     * @return array<string,DirectedEdgeInterface|UndirectedEdgeInterface>
      */
     private function outgoingEdges(VertexId $vertex, Graph $graph): array
     {
         $incidence = $graph->indexRegistry->index(IncidenceIndex::class);
         $edges = $incidence !== null
             ? $incidence->edgesFor($vertex)
-            : $graph->edgeStore->getAllEdges();
+            : $graph->edgeStore->getEdges();
 
         return array_filter(
             $edges,
-            static fn(Edge $e): bool => $e->u()->equals($vertex),
+            static fn(DirectedEdgeInterface|UndirectedEdgeInterface $e): bool => $e->u()->equals($vertex),
         );
     }
 }

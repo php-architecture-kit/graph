@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace PhpArchitecture\Graph\Edge\Validator;
 
-use PhpArchitecture\Graph\Edge\Edge;
+use PhpArchitecture\Graph\Edge\DirectedEdgeInterface;
+use PhpArchitecture\Graph\Edge\UndirectedEdgeInterface;
 use PhpArchitecture\Graph\Graph;
 
 final class EdgeValidatorChain implements EdgeValidatorInterface
@@ -24,7 +25,7 @@ final class EdgeValidatorChain implements EdgeValidatorInterface
         return $this;
     }
 
-    public function validate(Edge $edge, Graph $graph): void
+    public function validate(DirectedEdgeInterface|UndirectedEdgeInterface $edge, Graph $graph): void
     {
         foreach ($this->validators as $validator) {
             $validator->validate($edge, $graph);

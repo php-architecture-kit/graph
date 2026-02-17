@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace PhpArchitecture\Graph\Events\Listener;
 
-use PhpArchitecture\Graph\Vertex\Vertex;
+use PhpArchitecture\Graph\Vertex\VertexInterface;
 
 interface OnVertexAddedInterface
 {
-    public function onVertexAdded(Vertex $vertex): void;
+    public function onVertexAdded(VertexInterface $vertex): void;
 }

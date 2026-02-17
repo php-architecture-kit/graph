@@ -5,21 +5,22 @@ declare(strict_types=1);
 namespace PhpArchitecture\Graph\EdgeWeight\Config;
 
 use InvalidArgumentException;
-use PhpArchitecture\Graph\Edge\Edge;
+use PhpArchitecture\Graph\Edge\DirectedEdgeInterface;
 use PhpArchitecture\Graph\Edge\Identity\EdgeId;
+use PhpArchitecture\Graph\Edge\UndirectedEdgeInterface;
 use PhpArchitecture\Graph\EdgeWeight\EdgeWeights;
 use PhpArchitecture\Graph\EdgeWeight\Weight;
 
 final class WeightConfig
 {
-    /** @var array<class-string<Edge>,array<string,float>> */
+    /** @var array<class-string<DirectedEdgeInterface|UndirectedEdgeInterface>,array<string,float>> */
     private array $defaultsByEdgeClass = [];
 
-    /** @var array<class-string<Edge>,array<string,float>> */
+    /** @var array<class-string<DirectedEdgeInterface|UndirectedEdgeInterface>,array<string,float>> */
     private array $resolvedDefaultsByEdgeClass = [];
 
     /**
-     * @param array<class-string<Edge>,array<string,float|int>> $defaultsByEdgeClass
+     * @param array<class-string<DirectedEdgeInterface|UndirectedEdgeInterface>,array<string,float|int>> $defaultsByEdgeClass
      */
     public function __construct(array $defaultsByEdgeClass = [])
     {
@@ -29,13 +30,13 @@ final class WeightConfig
     }
 
     /**
-     * @param class-string<Edge> $edgeClass
+     * @param class-string<DirectedEdgeInterface|UndirectedEdgeInterface> $edgeClass
      * @param array<string,float|int> $defaultWeights
      */
     public function define(string $edgeClass, array $defaultWeights): self
     {
-        if (!is_a($edgeClass, Edge::class, true)) {
-            throw new \InvalidArgumentException('Weight defaults can be defined only for `' . Edge::class . '` subclasses.');
+        if (!is_a($edgeClass, DirectedEdgeInterface::class, true) && !is_a($edgeClass, UndirectedEdgeInterface::class, true)) {
+            throw new \InvalidArgumentException('Weight defaults can be defined only for `' . DirectedEdgeInterface::class . '` or `' . UndirectedEdgeInterface::class . '` subclasses.');
         }
 
         $normalized = [];
@@ -58,11 +59,11 @@ final class WeightConfig
         return $this;
     }
 
-    /** @param class-string<Edge> $edgeClass */
+    /** @param class-string<DirectedEdgeInterface|UndirectedEdgeInterface> $edgeClass */
     public function default(string $edgeClass): EdgeWeights
     {
-        if (!is_a($edgeClass, Edge::class, true)) {
-            throw new \InvalidArgumentException('Weight defaults can be resolved only for `' . Edge::class . '` subclasses.');
+        if (!is_a($edgeClass, DirectedEdgeInterface::class, true) && !is_a($edgeClass, UndirectedEdgeInterface::class, true)) {
+            throw new \InvalidArgumentException('Weight defaults can be resolved only for `' . DirectedEdgeInterface::class . '` or `' . UndirectedEdgeInterface::class . '` subclasses.');
         }
 
         $defaultWeights = [];
@@ -73,14 +74,14 @@ final class WeightConfig
         return new EdgeWeights(EdgeId::nil(), $defaultWeights);
     }
 
-    /** @return array<class-string<Edge>,array<string,float>> */
+    /** @return array<class-string<DirectedEdgeInterface|UndirectedEdgeInterface>,array<string,float>> */
     public function all(): array
     {
         return $this->defaultsByEdgeClass;
     }
 
     /**
-     * @param class-string<Edge> $edgeClass
+     * @param class-string<DirectedEdgeInterface|UndirectedEdgeInterface> $edgeClass
      * @return array<string,float>
      */
     private function resolveDefaultWeights(string $edgeClass): array
@@ -120,8 +121,8 @@ final class WeightConfig
     }
 
     /**
-     * @param class-string<Edge> $edgeClass
-     * @param class-string<Edge> $candidateClass
+     * @param class-string<DirectedEdgeInterface|UndirectedEdgeInterface> $edgeClass
+     * @param class-string<DirectedEdgeInterface|UndirectedEdgeInterface> $candidateClass
      */
     private function inheritanceDistance(string $edgeClass, string $candidateClass): ?int
     {

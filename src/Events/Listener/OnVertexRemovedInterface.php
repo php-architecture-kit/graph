@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace PhpArchitecture\Graph\Events\Listener;
 
-use PhpArchitecture\Graph\Vertex\Vertex;
+use PhpArchitecture\Graph\Vertex\VertexInterface;
 
 interface OnVertexRemovedInterface
 {
-    public function onVertexRemoved(Vertex $vertex): void;
+    public function onVertexRemoved(VertexInterface $vertex): void;
 }

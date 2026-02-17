@@ -6,7 +6,7 @@ namespace PhpArchitecture\Graph\Vertex;
 
 use PhpArchitecture\Graph\Vertex\Identity\VertexId;
 
-class Vertex
+class Vertex implements VertexInterface
 {
     public VertexId $id;
 
@@ -16,5 +16,10 @@ class Vertex
         public array $metadata = [],
     ) {
         $this->id = $id ?? VertexId::new();
+    }
+
+    public function id(): VertexId
+    {
+        return $this->id;
     }
 }

@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace PhpArchitecture\Graph\Events;
 
-use PhpArchitecture\Graph\Edge\Edge;
+use PhpArchitecture\Graph\Edge\DirectedEdgeInterface;
+use PhpArchitecture\Graph\Edge\UndirectedEdgeInterface;
 use PhpArchitecture\Graph\Events\Listener\OnEdgeAddedInterface;
 use PhpArchitecture\Graph\Events\Listener\OnEdgeRemovedInterface;
 use PhpArchitecture\Graph\Events\Listener\OnVertexAddedInterface;
 use PhpArchitecture\Graph\Events\Listener\OnVertexRemovedInterface;
-use PhpArchitecture\Graph\Vertex\Vertex;
+use PhpArchitecture\Graph\Vertex\VertexInterface;
 
 class EventDispatcher
 {
@@ -65,28 +66,28 @@ class EventDispatcher
         unset($this->onEdgeRemovedListeners[spl_object_id($listener)]);
     }
 
-    public function dispatchVertexAdded(Vertex $vertex): void
+    public function dispatchVertexAdded(VertexInterface $vertex): void
     {
         foreach ($this->onVertexAddedListeners as $listener) {
             $listener->onVertexAdded($vertex);
         }
     }
 
-    public function dispatchVertexRemoved(Vertex $vertex): void
+    public function dispatchVertexRemoved(VertexInterface $vertex): void
     {
         foreach ($this->onVertexRemovedListeners as $listener) {
             $listener->onVertexRemoved($vertex);
         }
     }
 
-    public function dispatchEdgeAdded(Edge $edge): void
+    public function dispatchEdgeAdded(DirectedEdgeInterface|UndirectedEdgeInterface $edge): void
     {
         foreach ($this->onEdgeAddedListeners as $listener) {
             $listener->onEdgeAdded($edge);
         }
     }
 
-    public function dispatchEdgeRemoved(Edge $edge): void
+    public function dispatchEdgeRemoved(DirectedEdgeInterface|UndirectedEdgeInterface $edge): void
     {
         foreach ($this->onEdgeRemovedListeners as $listener) {
             $listener->onEdgeRemoved($edge);

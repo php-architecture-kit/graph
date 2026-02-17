@@ -17,7 +17,7 @@ class EdgeStore
     use GraphTrait;
 
     /**
-     * @param array<string, Edge> $store
+     * @param array<string,DirectedEdgeInterface|UndirectedEdgeInterface> $store
      */
     public function __construct(
         private array $store = [],
@@ -29,10 +29,10 @@ class EdgeStore
         return $this->weightStore !== null;
     }
 
-    public function addEdge(Edge $edge, ?EdgeWeights $edgeWeights = null): void
+    public function addEdge(DirectedEdgeInterface|UndirectedEdgeInterface $edge, ?EdgeWeights $edgeWeights = null): void
     {
-        if (isset($this->store[$edge->id->toString()])) {
-            throw new Exception\EdgeAlreadyExistsException('Edge `' . $edge->id->toString() . '` already exists');
+        if (isset($this->store[$edge->id()->toString()])) {
+            throw new Exception\EdgeAlreadyExistsException('Edge `' . $edge->id()->toString() . '` already exists');
         }
 
         $graph = $this->graph();
@@ -49,10 +49,10 @@ class EdgeStore
 
         $this->weightStore?->addEdgeWeights(
             edge: $edge,
-            edgeWeights: $edgeWeights ?? new EdgeWeights($edge->id, []),
+            edgeWeights: $edgeWeights ?? new EdgeWeights($edge->id(), []),
         );
 
-        $this->store[$edge->id->toString()] = $edge;
+        $this->store[$edge->id()->toString()] = $edge;
         $graph->indexNotifier->notifyEdgeAdded($edge);
     }
 
@@ -62,10 +62,10 @@ class EdgeStore
             throw new Exception\MissingEdgeWeightStoreException('Edge weight store is not set. You should set it during graph creation in the GraphConfig.');
         }
 
-        /** @var Edge $edge */
+        /** @var DirectedEdgeInterface|UndirectedEdgeInterface $edge */
         $edge = $this->getEdge(id: $id, throwException: true);
 
-        return $this->weightStore->edgeWeights($edge->id);
+        return $this->weightStore->edgeWeights($edge->id());
     }
 
     public function areAdjacent(VertexId $u, VertexId $v): bool
@@ -108,17 +108,17 @@ class EdgeStore
     }
 
     /**
-     * @param ?callable(Edge):bool $filter
-     * @return array<string,Edge>
+     * @param ?callable(DirectedEdgeInterface|UndirectedEdgeInterface):bool $filter
+     * @return array<string,DirectedEdgeInterface|UndirectedEdgeInterface>
      */
-    public function getAllEdges(?callable $filter = null): array
+    public function getEdges(?callable $filter = null): array
     {
         return $filter
             ? array_filter($this->store, $filter)
             : $this->store;
     }
 
-    public function getEdge(EdgeId $id, bool $throwException = false): ?Edge
+    public function getEdge(EdgeId $id, bool $throwException = false): null|DirectedEdgeInterface|UndirectedEdgeInterface
     {
         if ($throwException && !isset($this->store[$id->toString()])) {
             throw new Exception\EdgeNotFoundException('Edge `' . $id->toString() . '` not found');
@@ -133,7 +133,7 @@ class EdgeStore
     }
 
     /**
-     * @return array<string,Edge>
+     * @return array<string,DirectedEdgeInterface|UndirectedEdgeInterface>
      */
     public function incidentEdges(VertexId $vertex): array
     {
@@ -144,7 +144,7 @@ class EdgeStore
 
         return array_filter(
             $this->store,
-            static fn(Edge $edge): bool => $edge->u()->equals($vertex) || $edge->v()->equals($vertex),
+            static fn(DirectedEdgeInterface|UndirectedEdgeInterface $edge): bool => $edge->u()->equals($vertex) || $edge->v()->equals($vertex),
         );
     }
 
