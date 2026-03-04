@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace PhpArchitecture\Graph\EdgeWeight;
 
-use PhpArchitecture\Graph\Edge\DirectedEdgeInterface;
+use PhpArchitecture\Graph\Edge\EdgeInterface;
 use PhpArchitecture\Graph\Edge\Identity\EdgeId;
-use PhpArchitecture\Graph\Edge\UndirectedEdgeInterface;
 use PhpArchitecture\Graph\EdgeWeight\Config\WeightConfig;
 use PhpArchitecture\Graph\EdgeWeight\Exception\EdgeWeightsAlreadyExistsException;
 use PhpArchitecture\Graph\EdgeWeight\Exception\EdgeWeightsNotFoundException;
@@ -20,7 +19,7 @@ final class EdgeWeightStore
         private readonly WeightConfig $weightConfig,
     ) {}
 
-    public function addEdgeWeights(DirectedEdgeInterface|UndirectedEdgeInterface $edge, EdgeWeights $edgeWeights): void
+    public function addEdgeWeights(EdgeInterface $edge, EdgeWeights $edgeWeights): void
     {
         $edgeIdString = $edge->id()->toString();
         if (isset($this->weightsByEdgeId[$edgeIdString])) {
@@ -49,7 +48,7 @@ final class EdgeWeightStore
         unset($this->weightsByEdgeId[$edgeId->toString()]);
     }
 
-    /** @param array<string,DirectedEdgeInterface|UndirectedEdgeInterface> $edges */
+    /** @param array<string,EdgeInterface> $edges */
     public function populateEdgeDefaultWeights(array $edges): void
     {
         foreach ($edges as $edge) {

@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace PhpArchitecture\Graph\Events;
 
-use PhpArchitecture\Graph\Edge\DirectedEdgeInterface;
-use PhpArchitecture\Graph\Edge\UndirectedEdgeInterface;
+use PhpArchitecture\Graph\Edge\EdgeInterface;
 use PhpArchitecture\Graph\Events\Listener\OnEdgeAddedInterface;
 use PhpArchitecture\Graph\Events\Listener\OnEdgeRemovedInterface;
 use PhpArchitecture\Graph\Events\Listener\OnVertexAddedInterface;
@@ -80,14 +79,14 @@ class EventDispatcher
         }
     }
 
-    public function dispatchEdgeAdded(DirectedEdgeInterface|UndirectedEdgeInterface $edge): void
+    public function dispatchEdgeAdded(EdgeInterface $edge): void
     {
         foreach ($this->onEdgeAddedListeners as $listener) {
             $listener->onEdgeAdded($edge);
         }
     }
 
-    public function dispatchEdgeRemoved(DirectedEdgeInterface|UndirectedEdgeInterface $edge): void
+    public function dispatchEdgeRemoved(EdgeInterface $edge): void
     {
         foreach ($this->onEdgeRemovedListeners as $listener) {
             $listener->onEdgeRemoved($edge);

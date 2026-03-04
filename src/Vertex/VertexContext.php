@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace PhpArchitecture\Graph\Vertex;
 
-use PhpArchitecture\Graph\Edge\DirectedEdgeInterface;
+use PhpArchitecture\Graph\Edge\EdgeInterface;
 use PhpArchitecture\Graph\Edge\EdgeContext;
-use PhpArchitecture\Graph\Edge\UndirectedEdgeInterface;
 use PhpArchitecture\Graph\Graph;
 use PhpArchitecture\Graph\Vertex\VertexInterface;
 
@@ -18,14 +17,14 @@ class VertexContext
     ) {}
 
     /**
-     * @param callable(DirectedEdgeInterface|UndirectedEdgeInterface):bool $filter
+     * @param callable(EdgeInterface):bool $filter
      * 
      * @return EdgeContext[]
      */
     public function edges(?callable $filter = null): array
     {
         $edges = $this->graph->edgeStore->getEdges(
-            filter: function (DirectedEdgeInterface|UndirectedEdgeInterface $edge) use ($filter): bool {
+            filter: function (EdgeInterface $edge) use ($filter): bool {
                 $isRelated = $this->vertex->id()->equals($edge->v()) || $this->vertex->id()->equals($edge->u());
 
                 return $isRelated && (!$filter || $filter($edge));
@@ -41,8 +40,8 @@ class VertexContext
     }
 
     /**
-     * @param callable(DirectedEdgeInterface|UndirectedEdgeInterface):bool $edgeFilter
-     * @param callable(DirectedEdgeInterface|UndirectedEdgeInterface,VertexInterface):bool $filter
+     * @param callable(EdgeInterface):bool $edgeFilter
+     * @param callable(EdgeInterface,VertexInterface):bool $filter
      * 
      * @return self[]
      */

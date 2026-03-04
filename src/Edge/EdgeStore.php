@@ -17,7 +17,7 @@ class EdgeStore
     use GraphTrait;
 
     /**
-     * @param array<string,DirectedEdgeInterface|UndirectedEdgeInterface> $store
+     * @param array<string,EdgeInterface> $store
      */
     public function __construct(
         private array $store = [],
@@ -29,7 +29,7 @@ class EdgeStore
         return $this->weightStore !== null;
     }
 
-    public function addEdge(DirectedEdgeInterface|UndirectedEdgeInterface $edge, ?EdgeWeights $edgeWeights = null): void
+    public function addEdge(EdgeInterface $edge, ?EdgeWeights $edgeWeights = null): void
     {
         if (isset($this->store[$edge->id()->toString()])) {
             throw new Exception\EdgeAlreadyExistsException('Edge `' . $edge->id()->toString() . '` already exists');
@@ -62,7 +62,7 @@ class EdgeStore
             throw new Exception\MissingEdgeWeightStoreException('Edge weight store is not set. You should set it during graph creation in the GraphConfig.');
         }
 
-        /** @var DirectedEdgeInterface|UndirectedEdgeInterface $edge */
+        /** @var EdgeInterface $edge */
         $edge = $this->getEdge(id: $id, throwException: true);
 
         return $this->weightStore->edgeWeights($edge->id());
@@ -108,8 +108,8 @@ class EdgeStore
     }
 
     /**
-     * @param ?callable(DirectedEdgeInterface|UndirectedEdgeInterface):bool $filter
-     * @return array<string,DirectedEdgeInterface|UndirectedEdgeInterface>
+     * @param ?callable(EdgeInterface):bool $filter
+     * @return array<string,EdgeInterface>
      */
     public function getEdges(?callable $filter = null): array
     {
@@ -118,7 +118,7 @@ class EdgeStore
             : $this->store;
     }
 
-    public function getEdge(EdgeId $id, bool $throwException = false): null|DirectedEdgeInterface|UndirectedEdgeInterface
+    public function getEdge(EdgeId $id, bool $throwException = false): null|EdgeInterface
     {
         if ($throwException && !isset($this->store[$id->toString()])) {
             throw new Exception\EdgeNotFoundException('Edge `' . $id->toString() . '` not found');
@@ -133,7 +133,7 @@ class EdgeStore
     }
 
     /**
-     * @return array<string,DirectedEdgeInterface|UndirectedEdgeInterface>
+     * @return array<string,EdgeInterface>
      */
     public function incidentEdges(VertexId $vertex): array
     {
@@ -144,7 +144,7 @@ class EdgeStore
 
         return array_filter(
             $this->store,
-            static fn(DirectedEdgeInterface|UndirectedEdgeInterface $edge): bool => $edge->u()->equals($vertex) || $edge->v()->equals($vertex),
+            static fn(EdgeInterface $edge): bool => $edge->u()->equals($vertex) || $edge->v()->equals($vertex),
         );
     }
 

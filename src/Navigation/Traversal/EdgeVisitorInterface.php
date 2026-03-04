@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace PhpArchitecture\Graph\Navigation\Traversal;
 
-use PhpArchitecture\Graph\Edge\DirectedEdgeInterface;
-use PhpArchitecture\Graph\Edge\UndirectedEdgeInterface;
+use PhpArchitecture\Graph\Edge\EdgeInterface;
 
 interface EdgeVisitorInterface
 {
-    public function visit(DirectedEdgeInterface|UndirectedEdgeInterface $edge): VisitResult;
+    public function visit(EdgeInterface $edge): VisitResult;
 }

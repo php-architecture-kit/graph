@@ -147,13 +147,12 @@ $visitedByVisitor = $result->getByVisitor(CollectVertexIdsVisitor::class);
 Shortest path search is available via `GraphNavigator::shortestPathTo(...)` and uses bidirectional search internally.
 
 ```php
-use PhpArchitecture\Graph\Edge\DirectedEdgeInterface;
-use PhpArchitecture\Graph\Edge\UndirectedEdgeInterface;
+use PhpArchitecture\Graph\Edge\EdgeInterface;
 
 $path = $navigator->shortestPathTo(
     sourceId: $a->id(),
     targetId: $c->id(),
-    edgeFilter: static fn(DirectedEdgeInterface|UndirectedEdgeInterface $edge): bool =>
+    edgeFilter: static fn(EdgeInterface $edge): bool =>
         ($edge->metadata['blocked'] ?? false) === false,
 );
 
@@ -227,7 +226,7 @@ $cost = $navigator->selectEdge($edge->id())->weights()->value('cost');
 | Interface | Method |
 |-----------|--------|
 | `VertexVisitorInterface` | `visit(VertexInterface $vertex): VisitResult` |
-| `EdgeVisitorInterface` | `visit(DirectedEdgeInterface\|UndirectedEdgeInterface $edge): VisitResult` |
+| `EdgeVisitorInterface` | `visit(EdgeInterface $edge): VisitResult` |
 
 ## Testing
 

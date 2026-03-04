@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace PhpArchitecture\Graph\Edge\Validator;
 
-use PhpArchitecture\Graph\Edge\DirectedEdgeInterface;
+use PhpArchitecture\Graph\Edge\EdgeInterface;
 use PhpArchitecture\Graph\Edge\Exception\MultiEdgeException;
-use PhpArchitecture\Graph\Edge\UndirectedEdgeInterface;
 use PhpArchitecture\Graph\Graph;
 use PhpArchitecture\Graph\Index\IncidenceIndex;
 
 final class MultiEdgeValidator implements EdgeValidatorInterface
 {
-    public function validate(DirectedEdgeInterface|UndirectedEdgeInterface $edge, Graph $graph): void
+    public function validate(EdgeInterface $edge, Graph $graph): void
     {
         $incidence = $graph->indexRegistry->index(IncidenceIndex::class);
         $edgesToCheck = $incidence !== null

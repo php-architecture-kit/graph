@@ -8,7 +8,7 @@ use PhpArchitecture\Graph\Edge\Identity\EdgeId;
 use PhpArchitecture\Graph\Vertex\VertexInterface;
 use PhpArchitecture\Graph\Vertex\Identity\VertexId;
 
-class DirectedEdge implements DirectedEdgeInterface
+class DirectedEdge implements EdgeInterface
 {
     public readonly EdgeId $id;
     public readonly VertexId $tail;
@@ -43,5 +43,10 @@ class DirectedEdge implements DirectedEdgeInterface
     public function v(): VertexId
     {
         return $this->head;
+    }
+
+    public function type(): EdgeType
+    {
+        return EdgeType::Directed;
     }
 }

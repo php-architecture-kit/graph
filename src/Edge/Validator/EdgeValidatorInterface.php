@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace PhpArchitecture\Graph\Edge\Validator;
 
-use PhpArchitecture\Graph\Edge\DirectedEdgeInterface;
-use PhpArchitecture\Graph\Edge\UndirectedEdgeInterface;
+use PhpArchitecture\Graph\Edge\EdgeInterface;
 use PhpArchitecture\Graph\Graph;
 
 interface EdgeValidatorInterface
@@ -15,5 +14,5 @@ interface EdgeValidatorInterface
      *
      * @throws \PhpArchitecture\Graph\Exception\GraphException
      */
-    public function validate(DirectedEdgeInterface|UndirectedEdgeInterface $edge, Graph $graph): void;
+    public function validate(EdgeInterface $edge, Graph $graph): void;
 }

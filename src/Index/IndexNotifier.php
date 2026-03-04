@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace PhpArchitecture\Graph\Index;
 
-use PhpArchitecture\Graph\Edge\DirectedEdgeInterface;
-use PhpArchitecture\Graph\Edge\UndirectedEdgeInterface;
+use PhpArchitecture\Graph\Edge\EdgeInterface;
 use PhpArchitecture\Graph\Events\EventDispatcher;
 use PhpArchitecture\Graph\Vertex\VertexInterface;
 
@@ -28,12 +27,12 @@ class IndexNotifier
         $this->eventDispatcher->dispatchVertexRemoved($vertex);
     }
 
-    public function notifyEdgeAdded(DirectedEdgeInterface|UndirectedEdgeInterface $edge): void
+    public function notifyEdgeAdded(EdgeInterface $edge): void
     {
         $this->eventDispatcher->dispatchEdgeAdded($edge);
     }
 
-    public function notifyEdgeRemoved(DirectedEdgeInterface|UndirectedEdgeInterface $edge): void
+    public function notifyEdgeRemoved(EdgeInterface $edge): void
     {
         $this->eventDispatcher->dispatchEdgeRemoved($edge);
     }

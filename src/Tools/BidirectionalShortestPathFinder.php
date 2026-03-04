@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace PhpArchitecture\Graph\Tools;
 
-use PhpArchitecture\Graph\Edge\DirectedEdgeInterface;
-use PhpArchitecture\Graph\Edge\UndirectedEdgeInterface;
+use PhpArchitecture\Graph\Edge\EdgeInterface;
 use PhpArchitecture\Graph\Graph;
 use PhpArchitecture\Graph\Vertex\Identity\VertexId;
 
@@ -16,8 +15,8 @@ final class BidirectionalShortestPathFinder
     ) {}
 
     /**
-     * @param callable(DirectedEdgeInterface|UndirectedEdgeInterface):bool $edgeFilter
-     * @return list<DirectedEdgeInterface|UndirectedEdgeInterface>
+     * @param callable(EdgeInterface):bool $edgeFilter
+     * @return list<EdgeInterface>
      */
     public function find(VertexId $sourceId, VertexId $targetId, ?callable $edgeFilter = null): array
     {
@@ -94,8 +93,8 @@ final class BidirectionalShortestPathFinder
     }
 
     /**
-     * @param callable(DirectedEdgeInterface|UndirectedEdgeInterface):bool $edgeFilter
-     * @return array<string,list<array{neighbor:VertexId,edge:DirectedEdgeInterface|UndirectedEdgeInterface}>>
+     * @param callable(EdgeInterface):bool $edgeFilter
+     * @return array<string,list<array{neighbor:VertexId,edge:EdgeInterface}>>
      */
     private function buildAdjacencyMap(?callable $edgeFilter): array
     {
@@ -129,7 +128,7 @@ final class BidirectionalShortestPathFinder
     /**
      * @param array<string,VertexId> $currentFrontLine
      * @param array<string,VertexId> $targetFrontLine
-     * @param array<string,list<array{neighbor:VertexId,edge:DirectedEdgeInterface|UndirectedEdgeInterface}>> $adjacency
+     * @param array<string,list<array{neighbor:VertexId,edge:EdgeInterface}>> $adjacency
      */
     private function shouldExpandCurrentFrontLine(
         bool $currentExpanded,
@@ -152,7 +151,7 @@ final class BidirectionalShortestPathFinder
 
     /**
      * @param array<string,VertexId> $frontLine
-     * @param array<string,list<array{neighbor:VertexId,edge:DirectedEdgeInterface|UndirectedEdgeInterface}>> $adjacency
+     * @param array<string,list<array{neighbor:VertexId,edge:EdgeInterface}>> $adjacency
      */
     private function frontLineEdgeCount(array $frontLine, array $adjacency): int
     {
@@ -167,9 +166,9 @@ final class BidirectionalShortestPathFinder
     /**
      * @param array<string,VertexId> $frontLine
      * @param array<string,VertexId> $visited
-     * @param array<string,array{vertex:VertexId,edge:DirectedEdgeInterface|UndirectedEdgeInterface}> $parents
+     * @param array<string,array{vertex:VertexId,edge:EdgeInterface}> $parents
      * @param array<string,VertexId> $otherVisited
-     * @param array<string,list<array{neighbor:VertexId,edge:DirectedEdgeInterface|UndirectedEdgeInterface}>> $adjacency
+     * @param array<string,list<array{neighbor:VertexId,edge:EdgeInterface}>> $adjacency
      * @return array{0:array<string,VertexId>,1:?VertexId}
      */
     private function expandFrontLine(
@@ -207,9 +206,9 @@ final class BidirectionalShortestPathFinder
     }
 
     /**
-     * @param array<string,array{vertex:VertexId,edge:DirectedEdgeInterface|UndirectedEdgeInterface}> $currentParents
-     * @param array<string,array{vertex:VertexId,edge:DirectedEdgeInterface|UndirectedEdgeInterface}> $targetParents
-     * @return list<DirectedEdgeInterface|UndirectedEdgeInterface>
+     * @param array<string,array{vertex:VertexId,edge:EdgeInterface}> $currentParents
+     * @param array<string,array{vertex:VertexId,edge:EdgeInterface}> $targetParents
+     * @return list<EdgeInterface>
      */
     private function buildPath(
         VertexId $sourceId,

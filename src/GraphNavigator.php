@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace PhpArchitecture\Graph;
 
-use PhpArchitecture\Graph\Edge\DirectedEdgeInterface;
+use PhpArchitecture\Graph\Edge\EdgeInterface;
 use PhpArchitecture\Graph\Edge\EdgeContext;
 use PhpArchitecture\Graph\Edge\Identity\EdgeId;
-use PhpArchitecture\Graph\Edge\UndirectedEdgeInterface;
 use PhpArchitecture\Graph\Navigation\Traversal;
 use PhpArchitecture\Graph\Tools\BidirectionalShortestPathFinder;
 use PhpArchitecture\Graph\Vertex\Identity\VertexId;
@@ -22,14 +21,14 @@ class GraphNavigator
 
     public function selectEdge(EdgeId $id): EdgeContext
     {
-        /** @var DirectedEdgeInterface|UndirectedEdgeInterface $edge */
+        /** @var EdgeInterface $edge */
         $edge = $this->graph->edgeStore->getEdge($id, true);
 
         return new EdgeContext($this->graph, $edge);
     }
 
     /**
-     * @param callable(DirectedEdgeInterface|UndirectedEdgeInterface):bool $filter
+     * @param callable(EdgeInterface):bool $filter
      *
      * @return EdgeContext[]
      */
@@ -38,7 +37,7 @@ class GraphNavigator
         $edges = $this->graph->edgeStore->getEdges($filter);
 
         return array_map(
-            fn(DirectedEdgeInterface|UndirectedEdgeInterface $edge): EdgeContext => new EdgeContext($this->graph, $edge),
+            fn(EdgeInterface $edge): EdgeContext => new EdgeContext($this->graph, $edge),
             $edges,
         );
     }
@@ -67,7 +66,7 @@ class GraphNavigator
     }
 
     /**
-     * @param callable(DirectedEdgeInterface|UndirectedEdgeInterface):bool $edgeFilter
+     * @param callable(EdgeInterface):bool $edgeFilter
      *
      * @return EdgeContext[]
      */
@@ -77,7 +76,7 @@ class GraphNavigator
         $pathEdges = $finder->find($sourceId, $targetId, $edgeFilter);
 
         return array_map(
-            fn(DirectedEdgeInterface|UndirectedEdgeInterface $edge): EdgeContext => new EdgeContext($this->graph, $edge),
+            fn(EdgeInterface $edge): EdgeContext => new EdgeContext($this->graph, $edge),
             $pathEdges,
         );
     }
@@ -95,7 +94,7 @@ class GraphNavigator
 
     /**
      * @param Traversal\EdgeVisitorInterface[] $visitors
-     * @param callable(DirectedEdgeInterface|UndirectedEdgeInterface):bool $filter
+     * @param callable(EdgeInterface):bool $filter
      */
     public function traverseEdges(array $visitors, ?callable $filter = null): Traversal\EdgeTraversalResult
     {

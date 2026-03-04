@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace PhpArchitecture\Graph\Navigation\Traversal;
 
 use PhpArchitecture\Graph\Graph;
-use PhpArchitecture\Graph\Edge\DirectedEdgeInterface;
-use PhpArchitecture\Graph\Edge\UndirectedEdgeInterface;
+use PhpArchitecture\Graph\Edge\EdgeInterface;
 
 class EdgeTraversal
 {
@@ -18,7 +17,7 @@ class EdgeTraversal
     ) {}
 
     /**
-     * @param ?callable(DirectedEdgeInterface|UndirectedEdgeInterface):bool $filter
+     * @param ?callable(EdgeInterface):bool $filter
      */
     public function traverse(Graph $graph, ?callable $filter = null): EdgeTraversalResult
     {

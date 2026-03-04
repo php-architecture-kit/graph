@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace PhpArchitecture\Graph\Index;
 
-use PhpArchitecture\Graph\Edge\DirectedEdgeInterface;
-use PhpArchitecture\Graph\Edge\UndirectedEdgeInterface;
+use PhpArchitecture\Graph\Edge\EdgeInterface;
 use PhpArchitecture\Graph\Events\Listener\OnEdgeAddedInterface;
 use PhpArchitecture\Graph\Events\Listener\OnEdgeRemovedInterface;
 use PhpArchitecture\Graph\Events\Listener\OnVertexAddedInterface;
@@ -70,7 +69,7 @@ class IndexRegistry implements OnVertexAddedInterface, OnVertexRemovedInterface,
         }
     }
 
-    public function onEdgeAdded(DirectedEdgeInterface|UndirectedEdgeInterface $edge): void
+    public function onEdgeAdded(EdgeInterface $edge): void
     {
         foreach ($this->indexes as $index) {
             if ($index instanceof OnEdgeAddedInterface) {
@@ -79,7 +78,7 @@ class IndexRegistry implements OnVertexAddedInterface, OnVertexRemovedInterface,
         }
     }
 
-    public function onEdgeRemoved(DirectedEdgeInterface|UndirectedEdgeInterface $edge): void
+    public function onEdgeRemoved(EdgeInterface $edge): void
     {
         foreach ($this->indexes as $index) {
             if ($index instanceof OnEdgeRemovedInterface) {

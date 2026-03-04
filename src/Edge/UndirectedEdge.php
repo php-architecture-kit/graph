@@ -8,7 +8,7 @@ use PhpArchitecture\Graph\Edge\Identity\EdgeId;
 use PhpArchitecture\Graph\Vertex\Identity\VertexId;
 use PhpArchitecture\Graph\Vertex\VertexInterface;
 
-class UndirectedEdge implements UndirectedEdgeInterface
+class UndirectedEdge implements EdgeInterface
 {
     public readonly EdgeId $id;
     public readonly VertexId $u;
@@ -29,7 +29,7 @@ class UndirectedEdge implements UndirectedEdgeInterface
         $this->v = $v->id();
         $this->id = $id ?? EdgeId::new();
     }
-    
+
     public function id(): EdgeId
     {
         return $this->id;
@@ -43,5 +43,10 @@ class UndirectedEdge implements UndirectedEdgeInterface
     public function v(): VertexId
     {
         return $this->v;
+    }
+
+    public function type(): EdgeType
+    {
+        return EdgeType::Undirected;
     }
 }
