@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace PhpArchitecture\Graph\Vertex;
 
-use PhpArchitecture\Graph\GraphTrait;
+use PhpArchitecture\Graph\Events\EventDispatcher;
+use PhpArchitecture\Graph\Utils\GraphTrait;
 use PhpArchitecture\Graph\Vertex\Identity\VertexId;
 
 class VertexStore
@@ -12,9 +13,12 @@ class VertexStore
     use GraphTrait;
 
     /**
-     * @var array<string,VertexInterface>
+     * @param array<string,VertexInterface> $store
      */
-    private array $store = [];
+    public function __construct(
+        private array $store,
+        private readonly EventDispatcher $eventDispatcher,
+    ) {}
 
     public function addVertex(VertexInterface $vertex): void
     {
@@ -23,7 +27,7 @@ class VertexStore
         }
 
         $this->store[$vertex->id()->toString()] = $vertex;
-        $this->graph()->indexNotifier->notifyVertexAdded($vertex);
+        $this->eventDispatcher->dispatchVertexAdded($vertex);
     }
 
     public function count(): int
@@ -70,6 +74,6 @@ class VertexStore
         }
 
         unset($this->store[$id->toString()]);
-        $this->graph()->indexNotifier->notifyVertexRemoved($vertex);
+        $this->eventDispatcher->dispatchVertexRemoved($vertex);
     }
 }

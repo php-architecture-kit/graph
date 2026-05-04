@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace PhpArchitecture\Graph\Edge;
 
-use PhpArchitecture\Graph\GraphTrait;
+use PhpArchitecture\Graph\Utils\GraphTrait;
 use PhpArchitecture\Graph\Edge\Identity\EdgeId;
-use PhpArchitecture\Graph\EdgeWeight\EdgeWeightStore;
-use PhpArchitecture\Graph\EdgeWeight\EdgeWeights;
+use PhpArchitecture\Graph\Edge\Validator\EdgeValidatorInterface;
+use PhpArchitecture\Graph\Edge\Weight\EdgeWeightStore;
+use PhpArchitecture\Graph\Edge\Weight\EdgeWeights;
+use PhpArchitecture\Graph\Events\EventDispatcher;
 use PhpArchitecture\Graph\Index\IncidenceIndex;
 use PhpArchitecture\Graph\Vertex\Exception\VertexNotInGraphException;
 use PhpArchitecture\Graph\Vertex\Identity\VertexId;
@@ -20,7 +22,9 @@ class EdgeStore
      * @param array<string,EdgeInterface> $store
      */
     public function __construct(
-        private array $store = [],
+        private array $store,
+        private readonly EventDispatcher $eventDispatcher,
+        private readonly EdgeValidatorInterface $edgeValidator,
         private readonly ?EdgeWeightStore $weightStore = null
     ) {}
 
@@ -45,7 +49,7 @@ class EdgeStore
             throw new VertexNotInGraphException('Vertex `' . $edge->v()->toString() . '` is not in graph');
         }
 
-        $graph->edgeValidator->validate($edge, $graph);
+        $this->edgeValidator->validate($edge, $graph);
 
         $this->weightStore?->addEdgeWeights(
             edge: $edge,
@@ -53,7 +57,7 @@ class EdgeStore
         );
 
         $this->store[$edge->id()->toString()] = $edge;
-        $graph->indexNotifier->notifyEdgeAdded($edge);
+        $this->eventDispatcher->dispatchEdgeAdded($edge);
     }
 
     public function getEdgeWeights(EdgeId $id): EdgeWeights
@@ -157,7 +161,7 @@ class EdgeStore
         $edge = $this->store[$id->toString()];
         unset($this->store[$id->toString()]);
         $this->weightStore?->removeEdgeWeights($id);
-        $this->graph()->indexNotifier->notifyEdgeRemoved($edge);
+        $this->eventDispatcher->dispatchEdgeRemoved($edge);
     }
 
     public function populateEdgeDefaultWeights(): void

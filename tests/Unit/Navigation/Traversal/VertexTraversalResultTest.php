@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\PhpArchitecture\Graph\Unit\Navigation\Traversal;
 
-use PhpArchitecture\Graph\Navigation\Traversal\VertexTraversalResult;
-use PhpArchitecture\Graph\Navigation\Traversal\VertexVisitorInterface;
-use PhpArchitecture\Graph\Navigation\Traversal\VisitAction;
-use PhpArchitecture\Graph\Navigation\Traversal\VisitResult;
+use PhpArchitecture\Graph\Tools\Navigation\Traversal\VertexTraversalResult;
+use PhpArchitecture\Graph\Tools\Navigation\Traversal\VertexVisitorInterface;
+use PhpArchitecture\Graph\Tools\Navigation\Traversal\VisitAction;
+use PhpArchitecture\Graph\Tools\Navigation\Traversal\VisitResult;
 use PhpArchitecture\Graph\Vertex\Vertex;
 use PhpArchitecture\Graph\Vertex\VertexInterface;
 use PHPUnit\Framework\Attributes\Test;

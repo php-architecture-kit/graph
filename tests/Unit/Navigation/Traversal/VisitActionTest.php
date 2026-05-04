@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\PhpArchitecture\Graph\Unit\Navigation\Traversal;
 
-use PhpArchitecture\Graph\Navigation\Traversal\VisitAction;
+use PhpArchitecture\Graph\Tools\Navigation\Traversal\VisitAction;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 

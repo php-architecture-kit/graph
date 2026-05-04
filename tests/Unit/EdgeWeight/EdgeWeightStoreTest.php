@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Tests\PhpArchitecture\Graph\Unit\EdgeWeight;
 
 use PhpArchitecture\Graph\Edge\DirectedEdge;
-use PhpArchitecture\Graph\EdgeWeight\Config\WeightConfig;
-use PhpArchitecture\Graph\EdgeWeight\EdgeWeightStore;
-use PhpArchitecture\Graph\EdgeWeight\EdgeWeights;
-use PhpArchitecture\Graph\EdgeWeight\Exception\EdgeWeightsAlreadyExistsException;
-use PhpArchitecture\Graph\EdgeWeight\Exception\EdgeWeightsNotFoundException;
-use PhpArchitecture\Graph\EdgeWeight\Weight;
+use PhpArchitecture\Graph\Edge\Weight\Config\WeightConfig;
+use PhpArchitecture\Graph\Edge\Weight\EdgeWeightStore;
+use PhpArchitecture\Graph\Edge\Weight\EdgeWeights;
+use PhpArchitecture\Graph\Edge\Weight\Exception\EdgeWeightsAlreadyExistsException;
+use PhpArchitecture\Graph\Edge\Weight\Exception\EdgeWeightsNotFoundException;
+use PhpArchitecture\Graph\Edge\Weight\Weight;
 use PhpArchitecture\Graph\Vertex\Vertex;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;

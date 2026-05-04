@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace PhpArchitecture\Graph;
+namespace PhpArchitecture\Graph\Config;
 
-use PhpArchitecture\Graph\EdgeWeight\Config\WeightConfig;
+use PhpArchitecture\Graph\Edge\Weight\Config\WeightConfig;
 
 final readonly class GraphConfig
 {

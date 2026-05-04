@@ -59,10 +59,10 @@ Use `GraphConfig` to control validation behavior and edge weights.
 
 ```php
 use PhpArchitecture\Graph\Graph;
-use PhpArchitecture\Graph\GraphConfig;
+use PhpArchitecture\Graph\Config\GraphConfig;
 use PhpArchitecture\Graph\Edge\DirectedEdge;
 use PhpArchitecture\Graph\Edge\UndirectedEdge;
-use PhpArchitecture\Graph\EdgeWeight\Config\WeightConfig;
+use PhpArchitecture\Graph\Edge\Weight\Config\WeightConfig;
 
 $graph = new Graph(config: new GraphConfig(
     allowSelfLoop: false,
@@ -118,9 +118,9 @@ The traversal module supports multiple visitors and three control actions:
 - `VisitAction::StopImmediately`
 
 ```php
-use PhpArchitecture\Graph\Navigation\Traversal\VertexVisitorInterface;
-use PhpArchitecture\Graph\Navigation\Traversal\VisitAction;
-use PhpArchitecture\Graph\Navigation\Traversal\VisitResult;
+use PhpArchitecture\Graph\Tools\Navigation\Traversal\VertexVisitorInterface;
+use PhpArchitecture\Graph\Tools\Navigation\Traversal\VisitAction;
+use PhpArchitecture\Graph\Tools\Navigation\Traversal\VisitResult;
 use PhpArchitecture\Graph\Vertex\VertexInterface;
 
 final class CollectVertexIdsVisitor implements VertexVisitorInterface
@@ -174,8 +174,8 @@ If `weightConfig` is enabled, you can define and read named weights per edge.
 
 ```php
 use PhpArchitecture\Graph\Edge\DirectedEdge;
-use PhpArchitecture\Graph\EdgeWeight\EdgeWeights;
-use PhpArchitecture\Graph\EdgeWeight\Weight;
+use PhpArchitecture\Graph\Edge\Weight\EdgeWeights;
+use PhpArchitecture\Graph\Edge\Weight\Weight;
 
 $edge = new DirectedEdge($a, $b);
 

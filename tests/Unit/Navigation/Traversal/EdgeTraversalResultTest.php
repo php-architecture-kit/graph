@@ -6,10 +6,10 @@ namespace Tests\PhpArchitecture\Graph\Unit\Navigation\Traversal;
 
 use PhpArchitecture\Graph\Edge\DirectedEdge;
 use PhpArchitecture\Graph\Edge\EdgeInterface;
-use PhpArchitecture\Graph\Navigation\Traversal\EdgeTraversalResult;
-use PhpArchitecture\Graph\Navigation\Traversal\EdgeVisitorInterface;
-use PhpArchitecture\Graph\Navigation\Traversal\VisitAction;
-use PhpArchitecture\Graph\Navigation\Traversal\VisitResult;
+use PhpArchitecture\Graph\Tools\Navigation\Traversal\EdgeTraversalResult;
+use PhpArchitecture\Graph\Tools\Navigation\Traversal\EdgeVisitorInterface;
+use PhpArchitecture\Graph\Tools\Navigation\Traversal\VisitAction;
+use PhpArchitecture\Graph\Tools\Navigation\Traversal\VisitResult;
 use PhpArchitecture\Graph\Vertex\Vertex;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;

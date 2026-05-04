@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace PhpArchitecture\Graph\EdgeWeight;
+namespace PhpArchitecture\Graph\Edge\Weight;
 
 use PhpArchitecture\Graph\Edge\EdgeInterface;
 use PhpArchitecture\Graph\Edge\Identity\EdgeId;
-use PhpArchitecture\Graph\EdgeWeight\Config\WeightConfig;
-use PhpArchitecture\Graph\EdgeWeight\Exception\EdgeWeightsAlreadyExistsException;
-use PhpArchitecture\Graph\EdgeWeight\Exception\EdgeWeightsNotFoundException;
+use PhpArchitecture\Graph\Edge\Weight\Config\WeightConfig;
+use PhpArchitecture\Graph\Edge\Weight\Exception\EdgeWeightsAlreadyExistsException;
+use PhpArchitecture\Graph\Edge\Weight\Exception\EdgeWeightsNotFoundException;
 
 final class EdgeWeightStore
 {

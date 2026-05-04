@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace PhpArchitecture\Graph\EdgeWeight\Config;
+namespace PhpArchitecture\Graph\Edge\Weight\Config;
 
 use InvalidArgumentException;
 use PhpArchitecture\Graph\Edge\EdgeInterface;
 use PhpArchitecture\Graph\Edge\Identity\EdgeId;
-use PhpArchitecture\Graph\EdgeWeight\EdgeWeights;
-use PhpArchitecture\Graph\EdgeWeight\Weight;
+use PhpArchitecture\Graph\Edge\Weight\EdgeWeights;
+use PhpArchitecture\Graph\Edge\Weight\Weight;
 
 final class WeightConfig
 {
