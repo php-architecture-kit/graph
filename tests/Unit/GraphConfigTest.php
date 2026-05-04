@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\PhpArchitecture\Graph\Unit;
 
-use PhpArchitecture\Graph\EdgeWeight\Config\WeightConfig;
-use PhpArchitecture\Graph\GraphConfig;
+use PhpArchitecture\Graph\Edge\Weight\Config\WeightConfig;
+use PhpArchitecture\Graph\Config\GraphConfig;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 

@@ -6,7 +6,7 @@ namespace Tests\PhpArchitecture\Graph\Unit\EdgeWeight\Config;
 
 use PhpArchitecture\Graph\Edge\DirectedEdge;
 use PhpArchitecture\Graph\Edge\Identity\EdgeId;
-use PhpArchitecture\Graph\EdgeWeight\Config\WeightConfig;
+use PhpArchitecture\Graph\Edge\Weight\Config\WeightConfig;
 use PhpArchitecture\Graph\Vertex\Vertex;
 use PhpArchitecture\Graph\Vertex\Identity\VertexId;
 use PHPUnit\Framework\Attributes\Test;

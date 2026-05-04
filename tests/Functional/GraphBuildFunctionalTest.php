@@ -6,11 +6,11 @@ namespace Tests\PhpArchitecture\Graph\Functional;
 
 use PhpArchitecture\Graph\Edge\DirectedEdge;
 use PhpArchitecture\Graph\Edge\UndirectedEdge;
-use PhpArchitecture\Graph\EdgeWeight\Config\WeightConfig;
-use PhpArchitecture\Graph\EdgeWeight\EdgeWeights;
-use PhpArchitecture\Graph\EdgeWeight\Weight;
+use PhpArchitecture\Graph\Edge\Weight\Config\WeightConfig;
+use PhpArchitecture\Graph\Edge\Weight\EdgeWeights;
+use PhpArchitecture\Graph\Edge\Weight\Weight;
 use PhpArchitecture\Graph\Graph;
-use PhpArchitecture\Graph\GraphConfig;
+use PhpArchitecture\Graph\Config\GraphConfig;
 use PhpArchitecture\Graph\Vertex\Vertex;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;

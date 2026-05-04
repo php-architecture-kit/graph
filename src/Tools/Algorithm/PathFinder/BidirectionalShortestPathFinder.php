@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace PhpArchitecture\Graph\Tools;
+namespace PhpArchitecture\Graph\Tools\Algorithm\PathFinder;
 
 use PhpArchitecture\Graph\Edge\EdgeInterface;
 use PhpArchitecture\Graph\Graph;

@@ -7,7 +7,7 @@ namespace Tests\PhpArchitecture\Graph\Unit;
 use PhpArchitecture\Graph\Exception\GraphGarbageCollectedException;
 use PhpArchitecture\Graph\Exception\GraphNotSetException;
 use PhpArchitecture\Graph\Graph;
-use PhpArchitecture\Graph\GraphTrait;
+use PhpArchitecture\Graph\Utils\GraphTrait;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 

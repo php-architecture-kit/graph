@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace PhpArchitecture\Graph\Edge;
 
 use PhpArchitecture\Graph\Edge\EdgeInterface;
-use PhpArchitecture\Graph\EdgeWeight\EdgeWeights;
+use PhpArchitecture\Graph\Edge\Weight\EdgeWeights;
 use PhpArchitecture\Graph\Graph;
 use PhpArchitecture\Graph\Vertex\VertexInterface;
 

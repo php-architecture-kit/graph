@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace PhpArchitecture\Graph\EdgeWeight;
+namespace PhpArchitecture\Graph\Edge\Weight;
 
 use InvalidArgumentException;
 use PhpArchitecture\Graph\Edge\Identity\EdgeId;
-use PhpArchitecture\Graph\EdgeWeight\Exception\WeightNotFoundException;
+use PhpArchitecture\Graph\Edge\Weight\Exception\WeightNotFoundException;
 
 final class EdgeWeights
 {

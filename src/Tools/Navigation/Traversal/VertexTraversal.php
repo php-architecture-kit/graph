@@ -2,32 +2,32 @@
 
 declare(strict_types=1);
 
-namespace PhpArchitecture\Graph\Navigation\Traversal;
+namespace PhpArchitecture\Graph\Tools\Navigation\Traversal;
 
 use PhpArchitecture\Graph\Graph;
-use PhpArchitecture\Graph\Edge\EdgeInterface;
+use PhpArchitecture\Graph\Vertex\VertexInterface;
 
-class EdgeTraversal
+class VertexTraversal
 {
     /**
-     * @param EdgeVisitorInterface[] $visitors
+     * @param VertexVisitorInterface[] $visitors
      */
     public function __construct(
         public readonly array $visitors,
     ) {}
 
     /**
-     * @param ?callable(EdgeInterface):bool $filter
+     * @param ?callable(VertexInterface):bool $filter
      */
-    public function traverse(Graph $graph, ?callable $filter = null): EdgeTraversalResult
+    public function traverse(Graph $graph, ?callable $filter = null): VertexTraversalResult
     {
-        $result = new EdgeTraversalResult();
+        $result = new VertexTraversalResult();
 
         $stopAtCurrentEntity = false;
-        foreach ($graph->edgeStore->getEdges($filter) as $edge) {
+        foreach ($graph->vertexStore->getVertices($filter) as $vertex) {
             foreach ($this->visitors as $visitor) {
-                $visitResult = $visitor->visit($edge);
-                $result->add($edge->id(), $visitor::class, $visitResult);
+                $visitResult = $visitor->visit($vertex);
+                $result->add($vertex->id(), $visitor::class, $visitResult);
 
                 if ($visitResult->action === VisitAction::StopImmediately) {
                     break 2;

@@ -25,6 +25,25 @@ class EventDispatcher
     /** @var array<int,OnEdgeRemovedInterface> */
     private array $onEdgeRemovedListeners = [];
 
+    public function __construct(
+        OnVertexAddedInterface|OnVertexRemovedInterface|OnEdgeAddedInterface|OnEdgeRemovedInterface ...$listeners
+    ) {
+        foreach ($listeners as $listener) {
+            if ($listener instanceof OnVertexAddedInterface) {
+                $this->addOnVertexAddedListener($listener);
+            }
+            if ($listener instanceof OnVertexRemovedInterface) {
+                $this->addOnVertexRemovedListener($listener);
+            }
+            if ($listener instanceof OnEdgeAddedInterface) {
+                $this->addOnEdgeAddedListener($listener);
+            }
+            if ($listener instanceof OnEdgeRemovedInterface) {
+                $this->addOnEdgeRemovedListener($listener);
+            }
+        }
+    }
+
     public function addOnVertexAddedListener(OnVertexAddedInterface $listener): void
     {
         $this->onVertexAddedListeners[spl_object_id($listener)] = $listener;

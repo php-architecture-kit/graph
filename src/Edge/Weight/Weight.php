@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace PhpArchitecture\Graph\EdgeWeight;
+namespace PhpArchitecture\Graph\Edge\Weight;
 
 use InvalidArgumentException;
 
@@ -13,11 +13,11 @@ final readonly class Weight
         public float $value,
     ) {
         if ($key === '') {
-            throw new \InvalidArgumentException('Weight key must not be empty.');
+            throw new InvalidArgumentException('Weight key must not be empty.');
         }
 
         if (!is_finite($value)) {
-            throw new \InvalidArgumentException('Weight value must be finite.');
+            throw new InvalidArgumentException('Weight value must be finite.');
         }
     }
 }

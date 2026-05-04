@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace PhpArchitecture\Graph;
+namespace PhpArchitecture\Graph\Tools\Navigation;
 
 use PhpArchitecture\Graph\Edge\EdgeInterface;
 use PhpArchitecture\Graph\Edge\EdgeContext;
 use PhpArchitecture\Graph\Edge\Identity\EdgeId;
-use PhpArchitecture\Graph\Navigation\Traversal;
-use PhpArchitecture\Graph\Tools\BidirectionalShortestPathFinder;
+use PhpArchitecture\Graph\Graph;
+use PhpArchitecture\Graph\Tools\Navigation\Traversal;
 use PhpArchitecture\Graph\Vertex\Identity\VertexId;
 use PhpArchitecture\Graph\Vertex\VertexInterface;
 use PhpArchitecture\Graph\Vertex\VertexContext;
@@ -62,22 +62,6 @@ class GraphNavigator
         return array_map(
             fn(VertexInterface $vertex): VertexContext => new VertexContext($this->graph, $vertex),
             $vertices,
-        );
-    }
-
-    /**
-     * @param callable(EdgeInterface):bool $edgeFilter
-     *
-     * @return EdgeContext[]
-     */
-    public function shortestPathTo(VertexId $sourceId, VertexId $targetId, ?callable $edgeFilter = null): array
-    {
-        $finder = new BidirectionalShortestPathFinder($this->graph);
-        $pathEdges = $finder->find($sourceId, $targetId, $edgeFilter);
-
-        return array_map(
-            fn(EdgeInterface $edge): EdgeContext => new EdgeContext($this->graph, $edge),
-            $pathEdges,
         );
     }
 
