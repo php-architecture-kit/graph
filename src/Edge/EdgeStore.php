@@ -108,7 +108,7 @@ class EdgeStore
             return $incidence->degree($vertex);
         }
 
-        return count($this->incidentEdges($vertex));
+        return count($this->getIncidentEdges($vertex));
     }
 
     /**
@@ -137,19 +137,24 @@ class EdgeStore
     }
 
     /**
+     * @param ?callable(EdgeInterface):bool $filter
      * @return array<string,EdgeInterface>
      */
-    public function incidentEdges(VertexId $vertex): array
+    public function getIncidentEdges(VertexId $vertex, ?callable $filter = null): array
     {
         $incidence = $this->graph()->indexRegistry->index(IncidenceIndex::class);
         if ($incidence !== null) {
-            return $incidence->edgesFor($vertex);
+            return $filter
+                ? array_filter($incidence->edgesFor($vertex), $filter)
+                : $incidence->edgesFor($vertex);
         }
 
-        return array_filter(
+        $incidentEdges = array_filter(
             $this->store,
             static fn(EdgeInterface $edge): bool => $edge->u()->equals($vertex) || $edge->v()->equals($vertex),
         );
+
+        return $filter ? array_filter($incidentEdges, $filter) : $incidentEdges;
     }
 
     public function removeEdge(EdgeId $id): void

@@ -57,7 +57,7 @@ class GraphBuildFunctionalTest extends TestCase
         $this->assertTrue($graph->edgeStore->areAdjacent($api->id, $cache->id));
         $this->assertFalse($graph->edgeStore->areAdjacent($cache->id, $db->id));
         $this->assertSame(2, $graph->edgeStore->degree($api->id));
-        $this->assertCount(2, $graph->edgeStore->incidentEdges($api->id));
+        $this->assertCount(2, $graph->edgeStore->getIncidentEdges($api->id));
 
         $apiToServiceWeights = $graph->edgeStore->getEdgeWeights($apiToService->id);
         $serviceToDbWeights = $graph->edgeStore->getEdgeWeights($serviceToDb->id);
@@ -102,7 +102,7 @@ class GraphBuildFunctionalTest extends TestCase
         $graph->edgeStore->addEdge($newEdge);
 
         $this->assertSame(2, $graph->edgeStore->count());
-        $this->assertCount(1, $graph->edgeStore->incidentEdges($a->id));
-        $this->assertCount(2, $graph->edgeStore->incidentEdges($d->id));
+        $this->assertCount(1, $graph->edgeStore->getIncidentEdges($a->id));
+        $this->assertCount(2, $graph->edgeStore->getIncidentEdges($d->id));
     }
 }
