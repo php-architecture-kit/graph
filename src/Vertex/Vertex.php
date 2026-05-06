@@ -8,7 +8,7 @@ use PhpArchitecture\Graph\Vertex\Identity\VertexId;
 
 class Vertex implements VertexInterface
 {
-    public VertexId $id;
+    public readonly VertexId $id;
 
     /** @param array<string,mixed> $metadata */
     public function __construct(
