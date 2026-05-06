@@ -74,7 +74,7 @@ final class EdgeWeights
     {
         foreach ($weights as $weight) {
             if (!$weight instanceof Weight) {
-                throw new \InvalidArgumentException('Each item passed to fillWith must be instance of ' . Weight::class . '.');
+                throw new InvalidArgumentException('Each item passed to fillWith must be instance of ' . Weight::class . '.');
             }
 
             if ($onlyMissing && $this->has($weight->key)) {

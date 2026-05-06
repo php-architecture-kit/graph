@@ -7,7 +7,7 @@ namespace Tests\PhpArchitecture\Graph\Unit\Navigation;
 use PhpArchitecture\Graph\Edge\DirectedEdge;
 use PhpArchitecture\Graph\Edge\EdgeInterface;
 use PhpArchitecture\Graph\Graph;
-use PhpArchitecture\Graph\GraphNavigator;
+use PhpArchitecture\Graph\Tools\Navigation\GraphNavigator;
 use PhpArchitecture\Graph\Tools\Navigation\Traversal\EdgeVisitorInterface;
 use PhpArchitecture\Graph\Tools\Navigation\Traversal\VertexVisitorInterface;
 use PhpArchitecture\Graph\Tools\Navigation\Traversal\VisitAction;

@@ -6,9 +6,8 @@ namespace Tests\PhpArchitecture\Graph\Unit\Vertex;
 
 use PhpArchitecture\Graph\Edge\DirectedEdge;
 use PhpArchitecture\Graph\Edge\EdgeInterface;
-use PhpArchitecture\Graph\Edge\EdgeContext;
 use PhpArchitecture\Graph\Graph;
-use PhpArchitecture\Graph\GraphNavigator;
+use PhpArchitecture\Graph\Tools\Algorithm\PathFinder\BidirectionalShortestPathFinder;
 use PhpArchitecture\Graph\Vertex\Vertex;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -22,8 +21,8 @@ class VertexContextTest extends TestCase
         $vertex = new Vertex();
         $graph->vertexStore->addVertex($vertex);
 
-        $path = (new GraphNavigator($graph))
-            ->shortestPathTo($vertex->id(), $vertex->id());
+        $path = (new BidirectionalShortestPathFinder($graph))
+            ->find($vertex->id(), $vertex->id());
 
         $this->assertSame([], $path);
     }
@@ -33,8 +32,8 @@ class VertexContextTest extends TestCase
     {
         $scenario = $this->createGraphWithAlternativePaths();
 
-        $path = (new GraphNavigator($scenario['graph']))
-            ->shortestPathTo($scenario['a']->id(), $scenario['d']->id());
+        $path = (new BidirectionalShortestPathFinder($scenario['graph']))
+            ->find($scenario['a']->id(), $scenario['d']->id());
 
         $this->assertSame(
             [
@@ -42,7 +41,7 @@ class VertexContextTest extends TestCase
                 $scenario['ed']->id()->toString(),
             ],
             array_map(
-                static fn(EdgeContext $context): string => $context->edge->id()->toString(),
+                static fn(EdgeInterface $edge): string => $edge->id()->toString(),
                 $path,
             ),
         );
@@ -53,8 +52,8 @@ class VertexContextTest extends TestCase
     {
         $scenario = $this->createGraphWithAlternativePaths();
 
-        $path = (new GraphNavigator($scenario['graph']))
-            ->shortestPathTo(
+        $path = (new BidirectionalShortestPathFinder($scenario['graph']))
+            ->find(
                 $scenario['a']->id(),
                 $scenario['d']->id(),
                 static fn(EdgeInterface $edge): bool => !$edge->id()->equals($scenario['ae']->id()),
@@ -67,7 +66,7 @@ class VertexContextTest extends TestCase
                 $scenario['cd']->id()->toString(),
             ],
             array_map(
-                static fn(EdgeContext $context): string => $context->edge->id()->toString(),
+                static fn(EdgeInterface $edge): string => $edge->id()->toString(),
                 $path,
             ),
         );
@@ -78,8 +77,8 @@ class VertexContextTest extends TestCase
     {
         $scenario = $this->createGraphWithAlternativePaths();
 
-        $path = (new GraphNavigator($scenario['graph']))
-            ->shortestPathTo(
+        $path = (new BidirectionalShortestPathFinder($scenario['graph']))
+            ->find(
                 $scenario['a']->id(),
                 $scenario['d']->id(),
                 static fn(EdgeInterface $edge): bool =>

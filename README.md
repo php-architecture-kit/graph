@@ -200,7 +200,6 @@ $cost = $navigator->selectEdge($edge->id())->weights()->value('cost');
 | `selectVertices(?callable $filter = null): VertexContext[]` | Select many vertices with optional filter |
 | `selectEdge(EdgeId $id): EdgeContext` | Select one edge as context |
 | `selectEdges(?callable $filter = null): EdgeContext[]` | Select many edges with optional filter |
-| `shortestPathTo(VertexId $sourceId, VertexId $targetId, ?callable $edgeFilter = null): EdgeContext[]` | Find shortest path between two vertices |
 | `traverseVertices(array $visitors, ?callable $filter = null): VertexTraversalResult` | Traverse vertices with visitors |
 | `traverseEdges(array $visitors, ?callable $filter = null): EdgeTraversalResult` | Traverse edges with visitors |
 
@@ -227,10 +226,6 @@ $cost = $navigator->selectEdge($edge->id())->weights()->value('cost');
 |-----------|--------|
 | `VertexVisitorInterface` | `visit(VertexInterface $vertex): VisitResult` |
 | `EdgeVisitorInterface` | `visit(EdgeInterface $edge): VisitResult` |
-
-## Testing
-
-Package is tested with PHPUnit in the [php-architecture-kit/workspace](https://github.com/php-architecture-kit/workspace) project.
 
 ## License
 

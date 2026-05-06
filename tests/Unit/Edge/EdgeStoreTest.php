@@ -128,7 +128,7 @@ class EdgeStoreTest extends TestCase
         $this->assertTrue($graph->edgeStore->areAdjacent($u->id, $w->id));
         $this->assertFalse($graph->edgeStore->areAdjacent($v->id, $w->id));
         $this->assertSame(2, $graph->edgeStore->degree($u->id));
-        $this->assertCount(2, $graph->edgeStore->incidentEdges($u->id));
+        $this->assertCount(2, $graph->edgeStore->getIncidentEdges($u->id));
     }
 
     #[Test]

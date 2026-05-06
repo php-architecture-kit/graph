@@ -7,6 +7,7 @@ namespace Tests\PhpArchitecture\Graph\Unit\EdgeWeight;
 use PhpArchitecture\Graph\Edge\Weight\Weight;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
+use InvalidArgumentException;
 
 class WeightTest extends TestCase
 {
@@ -22,7 +23,7 @@ class WeightTest extends TestCase
     #[Test]
     public function constructorThrowsForEmptyKey(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         new Weight('', 1.0);
     }
@@ -30,7 +31,7 @@ class WeightTest extends TestCase
     #[Test]
     public function constructorThrowsForNonFiniteValue(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         new Weight('cost', INF);
     }

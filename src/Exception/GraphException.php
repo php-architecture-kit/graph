@@ -6,6 +6,6 @@ namespace PhpArchitecture\Graph\Exception;
 
 use Exception;
 
-class GraphException extends \Exception
+class GraphException extends Exception
 {
 }
