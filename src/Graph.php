@@ -20,10 +20,8 @@ use PhpArchitecture\Graph\Vertex\VertexStore;
 class Graph
 {
     public readonly GraphConfig $config;
-
     public readonly EdgeStore $edgeStore;
     public readonly VertexStore $vertexStore;
-
     public readonly EventDispatcher $eventDispatcher;
     public readonly IndexRegistry $indexRegistry;
 
@@ -74,7 +72,7 @@ class Graph
             store: [],
             eventDispatcher: $this->eventDispatcher,
             edgeValidator: $edgeValidator,
-            weightStore: $defaultWeightStore
+            weightStore: $defaultWeightStore,
         );
 
         $this->edgeStore->setGraph($this);

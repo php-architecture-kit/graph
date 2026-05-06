@@ -17,6 +17,7 @@ use PhpArchitecture\Graph\Vertex\Vertex;
 use PhpArchitecture\Graph\Vertex\VertexStore;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 
 class GraphTest extends TestCase
 {
@@ -86,7 +87,7 @@ class GraphTest extends TestCase
             allowCyclicEdge: false,
         ));
 
-        $validatorChain = new \ReflectionClass($graph->edgeValidator);
+        $validatorChain = new ReflectionClass($graph->edgeValidator);
         $property = $validatorChain->getProperty('validators');
         $property->setAccessible(true);
 

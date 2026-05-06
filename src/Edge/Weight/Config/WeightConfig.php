@@ -35,18 +35,18 @@ final class WeightConfig
     public function define(string $edgeClass, array $defaultWeights): self
     {
         if (!is_a($edgeClass, EdgeInterface::class, true)) {
-            throw new \InvalidArgumentException('Weight defaults can be defined only for `' . EdgeInterface::class . '` subclasses.');
+            throw new InvalidArgumentException('Weight defaults can be defined only for `' . EdgeInterface::class . '` subclasses.');
         }
 
         $normalized = [];
         foreach ($defaultWeights as $key => $value) {
             if (!is_string($key) || $key === '') {
-                throw new \InvalidArgumentException('Weight key must be a non-empty string.');
+                throw new InvalidArgumentException('Weight key must be a non-empty string.');
             }
 
             $normalizedValue = (float) $value;
             if (!is_finite($normalizedValue)) {
-                throw new \InvalidArgumentException('Weight value for key `' . $key . '` must be finite.');
+                throw new InvalidArgumentException('Weight value for key `' . $key . '` must be finite.');
             }
 
             $normalized[$key] = $normalizedValue;
@@ -62,7 +62,7 @@ final class WeightConfig
     public function default(string $edgeClass): EdgeWeights
     {
         if (!is_a($edgeClass, EdgeInterface::class, true)) {
-            throw new \InvalidArgumentException('Weight defaults can be resolved only for `' . EdgeInterface::class . '` subclasses.');
+            throw new InvalidArgumentException('Weight defaults can be resolved only for `' . EdgeInterface::class . '` subclasses.');
         }
 
         $defaultWeights = [];

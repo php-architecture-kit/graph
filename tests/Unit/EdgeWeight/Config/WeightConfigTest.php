@@ -11,6 +11,8 @@ use PhpArchitecture\Graph\Vertex\Vertex;
 use PhpArchitecture\Graph\Vertex\Identity\VertexId;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
+use InvalidArgumentException;
+use stdClass;
 
 class ChildDirectedEdge extends DirectedEdge
 {
@@ -23,10 +25,10 @@ class WeightConfigTest extends TestCase
     {
         $config = new WeightConfig();
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         /** @phpstan-ignore-next-line */
-        $config->define(\stdClass::class, ['cost' => 1.0]);
+        $config->define(stdClass::class, ['cost' => 1.0]);
     }
 
     #[Test]
@@ -34,10 +36,10 @@ class WeightConfigTest extends TestCase
     {
         $config = new WeightConfig();
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         /** @phpstan-ignore-next-line */
-        $config->default(\stdClass::class);
+        $config->default(stdClass::class);
     }
 
     #[Test]
@@ -45,7 +47,7 @@ class WeightConfigTest extends TestCase
     {
         $config = new WeightConfig();
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $config->define(DirectedEdge::class, ['' => 1.0]);
     }
 
@@ -54,7 +56,7 @@ class WeightConfigTest extends TestCase
     {
         $config = new WeightConfig();
 
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $config->define(DirectedEdge::class, ['cost' => INF]);
     }
 

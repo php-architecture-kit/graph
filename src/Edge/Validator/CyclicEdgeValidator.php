@@ -30,7 +30,7 @@ final class CyclicEdgeValidator implements EdgeValidatorInterface
         }
 
         $visited = [$source->toString() => true];
-        $queue = new \SplQueue();
+        $queue = new SplQueue();
         $queue->enqueue($source);
 
         while (!$queue->isEmpty()) {

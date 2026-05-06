@@ -25,13 +25,14 @@ use PhpArchitecture\Graph\Vertex\Exception\VertexStoreException;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
+use Exception;
 
 class ExceptionHierarchyTest extends TestCase
 {
     #[Test]
     public function graphExceptionExtendsBaseException(): void
     {
-        $this->assertInstanceOf(\Exception::class, new GraphException('test'));
+        $this->assertInstanceOf(Exception::class, new GraphException('test'));
     }
 
     #[Test]
