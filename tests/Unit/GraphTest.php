@@ -7,9 +7,11 @@ namespace Tests\PhpArchitecture\Graph\Unit;
 use PhpArchitecture\Graph\Edge\DirectedEdge;
 use PhpArchitecture\Graph\Edge\EdgeStore;
 use PhpArchitecture\Graph\Edge\Validator\CyclicEdgeValidator;
+use PhpArchitecture\Graph\Edge\Validator\EdgeValidatorChain;
 use PhpArchitecture\Graph\Edge\Validator\MultiEdgeValidator;
 use PhpArchitecture\Graph\Edge\Validator\SelfLoopValidator;
 use PhpArchitecture\Graph\Edge\Weight\Config\WeightConfig;
+use PhpArchitecture\Graph\Events\EventDispatcher;
 use PhpArchitecture\Graph\Graph;
 use PhpArchitecture\Graph\Config\GraphConfig;
 use PhpArchitecture\Graph\Index\IncidenceIndex;
@@ -34,14 +36,14 @@ class GraphTest extends TestCase
     #[Test]
     public function constructorUsesProvidedStoresAndSetsGraphOnThem(): void
     {
-        $vertexStore = new class extends VertexStore {
+        $vertexStore = new class([], new EventDispatcher()) extends VertexStore {
             public function graphPublic(): Graph
             {
                 return $this->graph();
             }
         };
 
-        $edgeStore = new class extends EdgeStore {
+        $edgeStore = new class([], new EventDispatcher(), new EdgeValidatorChain()) extends EdgeStore {
             public function graphPublic(): Graph
             {
                 return $this->graph();
@@ -87,12 +89,17 @@ class GraphTest extends TestCase
             allowCyclicEdge: false,
         ));
 
-        $validatorChain = new ReflectionClass($graph->edgeValidator);
+        $edgeStoreReflection = new ReflectionClass($graph->edgeStore);
+        $edgeValidatorProp = $edgeStoreReflection->getProperty('edgeValidator');
+        $edgeValidatorProp->setAccessible(true);
+        $edgeValidator = $edgeValidatorProp->getValue($graph->edgeStore);
+
+        $validatorChain = new ReflectionClass($edgeValidator);
         $property = $validatorChain->getProperty('validators');
         $property->setAccessible(true);
 
         /** @var array<int,object> $validators */
-        $validators = $property->getValue($graph->edgeValidator);
+        $validators = $property->getValue($edgeValidator);
 
         $this->assertCount(3, $validators);
         $this->assertInstanceOf(SelfLoopValidator::class, $validators[0]);
