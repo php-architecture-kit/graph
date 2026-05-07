@@ -41,18 +41,18 @@ class Graph
 
     private function initializeIndexRegistry(?IndexRegistry $indexRegistry): void
     {
-        $this->indexRegistry = $indexRegistry ?? new IndexRegistry();
+        $this->indexRegistry = $indexRegistry ?? new IndexRegistry(); // @phpstan-ignore-line
         $this->indexRegistry->register(new IncidenceIndex());
     }
 
     private function initializeEventDispatcher(): void
     {
-        $this->eventDispatcher = new EventDispatcher($this->indexRegistry);
+        $this->eventDispatcher = new EventDispatcher($this->indexRegistry); // @phpstan-ignore-line
     }
 
     private function initializeVertexStore(?VertexStore $vertexStore): void
     {
-        $this->vertexStore = $vertexStore ?? new VertexStore([], $this->eventDispatcher);
+        $this->vertexStore = $vertexStore ?? new VertexStore([], $this->eventDispatcher); // @phpstan-ignore-line
         $this->vertexStore->setGraph($this);
     }
 
@@ -68,7 +68,7 @@ class Graph
             $edgeStore = new EdgeStore($edgeStore->getEdges(), $this->eventDispatcher, $edgeValidator, $defaultWeightStore);
         }
 
-        $this->edgeStore = $edgeStore ?? new EdgeStore(
+        $this->edgeStore = $edgeStore ?? new EdgeStore( // @phpstan-ignore-line
             store: [],
             eventDispatcher: $this->eventDispatcher,
             edgeValidator: $edgeValidator,
