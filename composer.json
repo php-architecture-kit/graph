@@ -33,9 +33,6 @@
             "PhpArchitecture\\Graph\\": "src/"
         }
     },
-    "conflict": {
-        "php-architecture-kit/uuid": ">=2.0"
-    },
     "extra": {
         "branch-alias": {
             "dev-main": "1.0.x-dev"
