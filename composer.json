@@ -25,6 +25,9 @@
         "php": "^8.0",
         "php-architecture-kit/uuid": "*"
     },
+    "conflict": {
+        "php-architecture-kit/uuid": "<2.0"
+    },
     "autoload": {
         "psr-4": {
             "PhpArchitecture\\Graph\\": "src/"
