@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\PhpArchitecture\Graph\Unit\Edge\Identity;
+namespace PhpArchitecture\Graph\Tests\Unit\Edge\Identity;
 
 use PhpArchitecture\Graph\Edge\Identity\EdgeId;
 use PHPUnit\Framework\Attributes\Test;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\PhpArchitecture\Graph\Unit\Navigation;
+namespace PhpArchitecture\Graph\Tests\Unit\Navigation;
 
 use PhpArchitecture\Graph\Edge\DirectedEdge;
 use PhpArchitecture\Graph\Edge\EdgeInterface;

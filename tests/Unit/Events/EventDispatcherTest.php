@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\PhpArchitecture\Graph\Unit\Events;
+namespace PhpArchitecture\Graph\Tests\Unit\Events;
 
 use PhpArchitecture\Graph\Edge\DirectedEdge;
 use PhpArchitecture\Graph\Edge\EdgeInterface;

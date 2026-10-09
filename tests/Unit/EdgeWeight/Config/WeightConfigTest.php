@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\PhpArchitecture\Graph\Unit\EdgeWeight\Config;
+namespace PhpArchitecture\Graph\Tests\Unit\EdgeWeight\Config;
 
 use PhpArchitecture\Graph\Edge\DirectedEdge;
 use PhpArchitecture\Graph\Edge\Identity\EdgeId;

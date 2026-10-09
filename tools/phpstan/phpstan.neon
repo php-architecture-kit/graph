@@ -1,0 +1,7 @@
+includes:
+    - baseline.neon
+
+parameters:
+    level: 8
+    phpVersion: 80200
+    treatPhpDocTypesAsCertain: false
