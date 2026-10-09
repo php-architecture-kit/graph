@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\PhpArchitecture\Graph\Unit\Vertex\Identity;
+namespace PhpArchitecture\Graph\Tests\Unit\Vertex\Identity;
 
 use PhpArchitecture\Graph\Vertex\Identity\VertexId;
 use PHPUnit\Framework\Attributes\Test;

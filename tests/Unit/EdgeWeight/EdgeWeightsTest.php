@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\PhpArchitecture\Graph\Unit\EdgeWeight;
+namespace PhpArchitecture\Graph\Tests\Unit\EdgeWeight;
 
 use PhpArchitecture\Graph\Edge\Identity\EdgeId;
 use PhpArchitecture\Graph\Edge\Weight\EdgeWeights;

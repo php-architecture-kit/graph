@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\PhpArchitecture\Graph\Unit\Edge\Validator;
+namespace PhpArchitecture\Graph\Tests\Unit\Edge\Validator;
 
 use PhpArchitecture\Graph\Edge\DirectedEdge;
 use PhpArchitecture\Graph\Edge\Exception\SelfLoopException;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\PhpArchitecture\Graph\Unit;
+namespace PhpArchitecture\Graph\Tests\Unit;
 
 use PhpArchitecture\Graph\Exception\GraphGarbageCollectedException;
 use PhpArchitecture\Graph\Exception\GraphNotSetException;

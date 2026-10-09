@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\PhpArchitecture\Graph\Unit\Exception;
+namespace PhpArchitecture\Graph\Tests\Unit\Exception;
 
 use PhpArchitecture\Graph\Edge\Exception\CyclicEdgeException;
 use PhpArchitecture\Graph\Edge\Exception\EdgeAlreadyExistsException;
